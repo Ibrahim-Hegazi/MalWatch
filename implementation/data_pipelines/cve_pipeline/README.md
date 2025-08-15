@@ -403,143 +403,45 @@ This system supports **real-time monitoring**, **automated data cleaning**, and 
 ---
 
 ## 🗂 Directory Structure
-
-- car_clinic_chatbot/
-  - .github/  # GitHub configuration folder for workflows and automation
-    - workflows/  # Contains CI/CD and scheduled workflow definitions
-      - main.yaml  # Main GitHub Actions workflow for CI/CD and scheduling
-
-  - README.md  # Project overview, setup instructions, usage, and documentation
-  - requirements.txt  # Python dependencies and package list for environment setup
-  - Dockerfile  # Docker configuration to containerize the application
-  - docker-compose.yml  # Optional file for orchestrating multiple containers/services
-  - .env  # Environment variables file (excluded from version control)
-  - .gitignore  # Lists files/folders to ignore in git commits (e.g., secrets, temp files)
-
-  - main.py  # Main entry point script for running the FastAPI backend service
-  - prefect_flows.py  # Prefect orchestration script managing workflow execution
-  - llm_prompt_templates.py  # Centralized storage of reusable prompt templates for LLM calls
-
-  - config/  # Configuration files and settings for the project
-    - settings.py  # Central config: paths, API keys, global options
-
-  - scripts/  # Miscellaneous one-off or utility scripts for manual testing or dev
-    - run_cleaning_locally.py  # Script to run data cleaning pipeline locally for testing
-    - generate_embeddings_once.py  # One-time embeddings generation utility script
-    - dev_debug_utils.py  # Developer utilities for debugging or inspecting data
-
-  - logs/  # Folder for storing local logs (e.g., pipeline execution logs)
-    - pipeline.log  # Log file for pipeline runs (if not using remote logging)
-
-  - notebooks/  # Jupyter notebooks for exploration, prototyping, and experimentation
-    - llm_prompt_tuning.ipynb  # Notebook focused on tuning and testing LLM prompts
-    - sample_reddit_analysis.ipynb  # EDA notebook analyzing sample Reddit data
-    - tagging_experiments.ipynb  # Notebook testing and experimenting with tagging strategies
-
-  - data/  # All datasets, intermediate, and processed data stored here
-    - raw/  # Raw unprocessed Reddit posts and comments
-    - cleaned/  # Data cleaned and structured into problem–solution pairs
-    - augmented/  # Augmented data with paraphrases, translations, noise injection
-    - tagged/  # Data with semantic tags applied (problems, solutions, components)
-    - embeddings/  # Embedding vectors for semantic similarity and recommendations
-      - problems/  # Embeddings representing user-reported issues
-      - branches/  # Embeddings representing Car Clinic branch expertise profiles
-    - examples.jsonl  # Labeled examples for development, debugging, or training validation
-
-  - python_scripts/  # Core modular pipeline components implemented as Python packages
-    - reddit_data_extractor/  # Extracts and scrapes Reddit data
-      - __init__.py  # Package initializer
-      - config.py  # Extractor-specific configurations
-      - extractor.py  # Main extraction logic from Reddit API
-      - extractor_Base.py  # Base or initial version of the code (NON MODULARIZED)
-      - flow.py  # Orchestration flow for data extraction
-      - reddit_client.py  # Wrapper/client for Reddit API interactions
-      - scraper.py  # Web scraping utilities if applicable
-      - writer.py  # File writing and storage utilities
-      - utils.py  # Helper functions and utilities for extraction
-
-    - reddit_data_cleaner/  # Cleans and structures raw Reddit data
-      - __init__.py  # Package initializer
-      - flow.py  # Orchestration flow for data cleaning
-      - cleaner.py  # Core cleaning logic and transformations
-      - llm_cleaner.py  # Local LLM-based cleaning for testing with sample prompts, SKIPPED BECAUSE OF THE LIMITED COMPUTATIONAL RESOURCES
-      - llm_runner.py  # LLM execution engine for inference calls
-      - preprocessor.py  # Text preprocessing utilities (e.g., normalization, bot removal)
-      - postprocessor.py  # Postprocessing to fix JSON, handle nulls, remove hallucinations
-      - utils.py  # Helper utilities specific to cleaning
-
-    - data_augmenter/  # Augmentation of cleaned data (paraphrasing, translation, noise)
-      - __init__.py  # Package initializer
-      - flow.py  # Orchestration flow for data augmentation
-      - paraphraser.py  # Generates paraphrased sentence variants
-      - translator.py  # Translation and back-translation handling
-      - noise_injector.py  # Adds typos, slang, and noise to simulate real input
-      - utils.py  # Helper functions for augmentation
-      - config.py  # Augmentation-specific configuration parameters
-
-    - tag_generator/  # Generates semantic tags from problems and solutions
-      - __init__.py  # Package initializer
-      - flow.py  # Orchestration flow for tagging process
-      - tagger.py  # Tag extraction and assignment logic
-      - constants.py  # Tagging rules, enums, constants
-      - utils.py  # Tagging utility functions
-
-    - embedding_generator/  # Creates embeddings for problems and branches
-      - __init__.py  # Package initializer
-      - flow.py  # Orchestration flow for embedding generation
-      - embedder.py  # Embedding model wrapper and vectorization logic
-      - utils.py  # Embedding utility functions
-      - config.py  # Embedding-related config (models, parameters)
-
-    - branch_recommender/  # Matches problems to best repair branches
-      - __init__.py  # Package initializer
-      - flow.py  # Orchestration flow for branch recommendation
-      - matcher.py  # Core matching algorithms and similarity scoring
-      - filters.py  # Filtering logic (location, availability)
-      - utils.py  # Helper functions for recommendation process
-      - ranker.py  # Ranking and scoring of candidate branches
-
-  - chatbot/  # Backend logic for chatbot interactions and response generation
-    - query_classifier.py  # Classifies user input into intent/problem categories
-    - retriever.py  # Retrieves relevant past cases or FAQs for context
-    - reasoner.py  # Final LLM-based reasoning and response generator
-    - branch_suggester.py  # Suggests branches based on embedding similarity
-    - formatter.py  # Formats chatbot responses into user-friendly output
-    - fallback.py  # Handles errors, fallback scenarios, and edge cases
-
-  - api/  # FastAPI backend API implementation and endpoints
-    - routes/  # API route handlers
-      - chat.py  # Chat endpoint for user queries
-      - recommend.py  # Branch recommendation API endpoint
-    - models.py  # Pydantic data models for request/response validation
-    - dependencies.py  # Shared dependencies, middleware, security utilities
-    - server.py  # FastAPI app instance and server launch script
-
-  - tests/  # Automated test suite for unit and integration tests
-    - conftest.py  # Shared pytest fixtures and setup code
-    - unit/  # Unit tests for isolated functions/modules
-      - test_cleaner.py  # Tests for data cleaning functions
-      - test_embedder.py  # Tests for embedding generation modules
-      - ...  # Other unit tests
-    - integration/  # Integration tests for multi-module workflows
-      - test_end_to_end_pipeline.py  # Full pipeline test case
-      - ...  # Other integration tests
-    - test_data/  # Sample test input and expected output data files
-      - sample_raw.json  # Raw Reddit data sample for testing
-      - expected_cleaned.json  # Expected cleaned output for comparison
-
-  - extra_scripts/  # Additional standalone Python utilities (non-packaged)
-    - Token Counter and Cost Approximator  # Utility for token counting and cost estimation
-    - Parquet Transformer  # Utility for transforming data into Parquet format
-    - Merge Mail Maker  # Utility to generate merged emails or reports
-
-  - docs/  # Documentation and visual assets for the project
-    - architecture_diagram.png  # System architecture diagram image
-    - dag_flow.png  # Directed Acyclic Graph flow diagram image
-    - embedding_guide.md  # Documentation on embedding techniques used
-    - branch_matching.md  # Documentation on branch matching logic
-    - api_schema.md  # API schema documentation for endpoints
-    - sample_output_examples.md  # Examples of expected system output JSONs
+cve_pipeline/
+│
+├── flows/
+│   ├── __init__.py
+│   ├── run_cve_pipeline.py      # Prefect flow entrypoint
+│
+├── ingestion/
+│   ├── __init__.py
+│   ├── cve_ingestor.py          # Pulls CVE JSON data from NVD API
+│   ├── cve_yearly_checker.py    # Checks for missing yearly files
+│   ├── cve_new_checker.py       # Checks for new CVEs since last run
+│   ├── cve_modified_checker.py  # Checks for modified CVEs
+│
+├── processing/
+│   ├── __init__.py
+│   ├── normalize_cve.py         # Normalizes CVE JSON into a tabular format
+│   ├── update_cumulative.py     # Updates historical cumulative DB
+│
+├── storage/
+│   ├── __init__.py
+│   ├── file_manager.py          # Saves to local CSV/Parquet
+│   ├── db_manager.py            # Handles cumulative DB logic
+│
+├── utils/
+│   ├── __init__.py
+│   ├── api_client.py            # NVD API calls & retries
+│   ├── logger.py                # Central logging config
+│   ├── config.py                # Settings (env variables)
+│
+├── data/
+│   ├── raw/                     # Raw JSON downloads (by year)
+│   ├── processed/               # Normalized CSV/Parquet files
+│   ├── cumulative/              # Historical full dataset
+│
+├── requirements.txt
+├── README.md
+└── .github/
+    └── workflows/
+        └── cve_pipeline.yml     # GitHub Actions workflow file
 
 ---
 
