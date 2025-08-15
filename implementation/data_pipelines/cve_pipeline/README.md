@@ -403,40 +403,50 @@ This system supports **real-time monitoring**, **automated data cleaning**, and 
 ---
 
 ## 🗂 Directory Structure
-## 🗂 Directory Structure
+- cve_pipeline/
+  - flows/
+    - __init__.py
+    - run_cve_pipeline.py       # Main Prefect flow entrypoint
+    - cve_pipeline_flow.py      # Alternative flow definition / modularized steps
+  - ingestion/
+    - __init__.py
+    - cve_ingestor.py           # Pulls CVE JSON data from NVD API
+    - cve_yearly_checker.py     # Checks for missing yearly files
+    - cve_new_checker.py        # Checks for new CVEs since last run
+    - cve_modified_checker.py   # Checks for modified CVEs
+    - fetch_recent.py           # Fetches most recent CVE records
+    - fetch_modified.py         # Fetches recently modified CVEs
+  - processing/
+    - __init__.py
+    - normalize_cve.py          # Normalizes CVE JSON into a tabular format
+    - update_cumulative.py      # Updates historical cumulative DB
+    - parse_cve.py              # Parses CVE JSON into structured fields
+    - merge_datasets.py         # Merges multiple CVE datasets
+  - storage/
+    - __init__.py
+    - file_manager.py           # Saves to local CSV/Parquet
+    - db_manager.py             # Handles cumulative DB logic
+    - save_to_parquet.py        # Saves processed data to Parquet format
+    - save_to_sqlite.py         # Saves processed data to SQLite database
+  - utils/
+    - __init__.py
+    - api_client.py             # NVD API calls & retries
+    - logger.py                 # Central logging config
+    - config.py                 # Settings (env variables)
+  - tests/
+    - __init__.py
+    - test_ingestion.py
+    - test_processing.py
+  - data/
+    - raw/                      # Raw JSON downloads (by year)
+    - processed/                # Normalized CSV/Parquet files
+    - cumulative/               # Historical full dataset
+  - requirements.txt
+  - README.md
+  - .github/
+    - workflows/
+      - cve_pipeline.yml        # GitHub Actions workflow for automation
 
-- **cve_pipeline/**
-  - **flows/**
-    - `__init__.py`
-    - `run_cve_pipeline.py` — Prefect flow entrypoint
-  - **ingestion/**
-    - `__init__.py`
-    - `cve_ingestor.py` — Pulls CVE JSON data from NVD API
-    - `cve_yearly_checker.py` — Checks for missing yearly files
-    - `cve_new_checker.py` — Checks for new CVEs since last run
-    - `cve_modified_checker.py` — Checks for modified CVEs
-  - **processing/**
-    - `__init__.py`
-    - `normalize_cve.py` — Normalizes CVE JSON into a tabular format
-    - `update_cumulative.py` — Updates historical cumulative DB
-  - **storage/**
-    - `__init__.py`
-    - `file_manager.py` — Saves to local CSV/Parquet
-    - `db_manager.py` — Handles cumulative DB logic
-  - **utils/**
-    - `__init__.py`
-    - `api_client.py` — NVD API calls & retries
-    - `logger.py` — Central logging config
-    - `config.py` — Settings (env variables)
-  - **data/**
-    - **raw/** — Raw JSON downloads (by year)
-    - **processed/** — Normalized CSV/Parquet files
-    - **cumulative/** — Historical full dataset
-  - `requirements.txt`
-  - `README.md`
-  - **.github/**
-    - **workflows/**
-      - `cve_pipeline.yml` — GitHub Actions workflow file
 
 ---
 
