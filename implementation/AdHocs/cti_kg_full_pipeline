@@ -1,0 +1,48 @@
+// CTI-KG End-to-End Pipeline
+digraph {
+	rankdir=LR size="8,5"
+	1 [label="Phase 1:
+Threat Data Acquisition" fillcolor=lightblue shape=box style="rounded,filled"]
+	2 [label="Phase 2:
+Normalization & Parsing" fillcolor=lightblue shape=box style="rounded,filled"]
+	3 [label="Phase 3:
+Entity Resolution & Enrichment" fillcolor=lightblue shape=box style="rounded,filled"]
+	4 [label="Phase 4:
+Knowledge Graph Construction" fillcolor=lightblue shape=box style="rounded,filled"]
+	5 [label="Phase 5:
+Adversary & Campaign Attribution" fillcolor=lightblue shape=box style="rounded,filled"]
+	6 [label="Phase 6:
+Context-Aware Analysis" fillcolor=lightblue shape=box style="rounded,filled"]
+	7 [label="Phase 7:
+Adversary Simulation & Hunting Prep" fillcolor=lightblue shape=box style="rounded,filled"]
+	8 [label="Phase 8:
+Automation & Integration" fillcolor=lightblue shape=box style="rounded,filled"]
+	9 [label="Phase 9:
+Visualization & Analyst Workbench" fillcolor=lightblue shape=box style="rounded,filled"]
+	10 [label="Phase 10:
+NLP Chatbot Interface" fillcolor=lightblue shape=box style="rounded,filled"]
+	11 [label="Phase 11:
+Collaboration & Sharing" fillcolor=lightblue shape=box style="rounded,filled"]
+	12 [label="Phase 12:
+Monitoring, Evaluation & Maintenance" fillcolor=lightblue shape=box style="rounded,filled"]
+	1 -> 2
+	2 -> 3
+	3 -> 4
+	4 -> 5
+	5 -> 6
+	6 -> 7
+	7 -> 8
+	8 -> 9
+	9 -> 10
+	10 -> 11
+	11 -> 12
+	12 -> 1 [label="schema drift feedback" style=dashed]
+	12 -> 4 [label="KG retraining" style=dashed]
+	12 -> 10 [label="Chatbot tuning" style=dashed]
+	12 -> 11 [label="Sharing compliance" style=dashed]
+	6 -> 7 [label="attack paths" style=dashed]
+	7 -> 8 [label="hunts → SOAR" style=dashed]
+	8 -> 6 [label="incident feedback" style=dashed]
+	9 -> 10 [label="UI → chatbot" style=dashed]
+	11 -> 1 [label="partner feeds" style=dashed]
+}

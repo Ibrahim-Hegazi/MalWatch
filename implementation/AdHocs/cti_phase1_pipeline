@@ -1,0 +1,44 @@
+digraph CTI_Phase1_Pipeline {
+	rankdir=LR size=8
+	CVE [label="NVD API (CVE feeds)" fillcolor="#f9f5d7" shape=box style=filled]
+	ATTACK [label="MITRE ATT&CK / CAPEC" fillcolor="#f9f5d7" shape=box style=filled]
+	EXPLOIT [label="ExploitDB / GitHub PoCs" fillcolor="#f9f5d7" shape=box style=filled]
+	CLOUD [label="Cloud Inventories (AWS/Azure/GCP)" fillcolor="#f9f5d7" shape=box style=filled]
+	SCANNER [label="Vuln Scanners (Nessus/Qualys)" fillcolor="#f9f5d7" shape=box style=filled]
+	DARK [label="Dark Web / Forums / Paste Sites" fillcolor="#f9f5d7" shape=box style=filled]
+	YARA [label="YARA / Sigma Rules" fillcolor="#f9f5d7" shape=box style=filled]
+	OTX [label="Threat Sharing (MISP / OTX)" fillcolor="#f9f5d7" shape=box style=filled]
+	EXPLOIT_SIG [label="Weaponization Feeds (KEV / EPSS)" fillcolor="#f9f5d7" shape=box style=filled]
+	IOC [label="OSINT Blacklists (Abuse.ch, PhishTank)" fillcolor="#f9f5d7" shape=box style=filled]
+	KAFKA [label="Kafka / Kinesis / PubSub
+(Event Queue)" fillcolor="#d5e8d4" shape=cylinder style=filled]
+	BRONZE [label="Bronze Layer (Raw Data Lake)
+S3 / HDFS / Delta Lake" fillcolor="#dae8fc" shape=folder style=filled]
+	SILVER [label="Silver Layer (Normalized)" fillcolor="#dae8fc" shape=folder style=filled]
+	GOLD [label="Gold Layer (Curated / KG)" fillcolor="#dae8fc" shape=folder style=filled]
+	ES [label="Elasticsearch / OpenSearch" fillcolor="#ffe6cc" shape=component style=filled]
+	NEO4J [label="Graph DB (Neo4j / JanusGraph)" fillcolor="#ffe6cc" shape=component style=filled]
+	TSDB [label="Time-Series DB (Timescale / Influx)" fillcolor="#ffe6cc" shape=component style=filled]
+	POSTGRES [label="Relational DB (Postgres/CloudSQL)" fillcolor="#ffe6cc" shape=component style=filled]
+	CVE -> KAFKA
+	ATTACK -> KAFKA
+	EXPLOIT -> KAFKA
+	CLOUD -> KAFKA
+	SCANNER -> KAFKA
+	DARK -> KAFKA
+	YARA -> KAFKA
+	OTX -> KAFKA
+	EXPLOIT_SIG -> KAFKA
+	IOC -> KAFKA
+	KAFKA -> BRONZE
+	BRONZE -> SILVER
+	SILVER -> GOLD
+	BRONZE -> ES
+	BRONZE -> NEO4J
+	BRONZE -> TSDB
+	BRONZE -> POSTGRES
+	AIRFLOW [label="Airflow / Prefect
+(DAG Orchestration)" fillcolor="#f8cecc" shape=ellipse style=filled]
+	AIRFLOW -> KAFKA
+	AIRFLOW -> BRONZE
+}
