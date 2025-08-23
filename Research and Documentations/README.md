@@ -1,4 +1,4 @@
-# CTI-KG: Cyber Threat Intelligence Knowledge Graph  
+# 🛡️ Malwatch – AI-Powered Network Security Scanning & Protection System
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)  
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)  
@@ -6,11 +6,11 @@
 [![Docker](https://img.shields.io/badge/Container-Docker-blue)](https://www.docker.com/)  
 [![CI/CD](https://img.shields.io/badge/CI/CD-GitHub_Actions-green)](https://github.com/features/actions)  
 
-# What is CTI-KG?
+# What is Malwatch?
 
-**CTI-KG** is a **Cyber Threat Intelligence Knowledge Graph** that acts as a central brain for cybersecurity data. Unlike traditional threat dashboards or standalone TIPs, CTI-KG **connects vulnerabilities, adversaries, exploits, and detection rules into a unified graph**, and enhances it with **AI-driven analytics and automation**.
+**Malwatch** is a **Cyber Threat Intelligence Knowledge Graph** that acts as a central brain for cybersecurity data. Unlike traditional threat dashboards or standalone TIPs, CTI-KG **connects vulnerabilities, adversaries, exploits, and detection rules into a unified graph**, and enhances it with **AI-driven analytics and automation**.
 
-With CTI-KG, security teams can:
+With malwatch, security teams can:
 
 1. 🔗 **Aggregate and normalize threat data** from CVEs, IOCs, ATT&CK, dark web feeds, and exploits 
 2. 🎯 **Correlate campaigns, TTPs, and adversary behaviors** across multiple sources
@@ -20,12 +20,12 @@ With CTI-KG, security teams can:
 6. 🔒 **Share intelligence securely** via STIX/TAXII with trusted partners 
 7. 📈 **Monitor, retrain, and improve** the system continuously based on user feedback and drift detection 
 
-Think of CTI-KG as a **virtual cybersecurity analyst** with a memory, reasoning skills, and automation capabilities: it can see the network, understand threats, and take action—providing **contextual insights and actionable recommendations** faster than manual processes.
+Think of Malwatch as a **virtual cybersecurity analyst** with a memory, reasoning skills, and automation capabilities: it can see the network, understand threats, and take action—providing **contextual insights and actionable recommendations** faster than manual processes.
 
 
 ## 📌 Table of Contents
 
-1. [🚀 Project Overview](#-project-overview): A brief introduction to the CTI-KG project, its purpose, and the problems it solves.
+1. [🚀 Project Overview](#-project-overview): A brief introduction to the Malwatch project, its purpose, and the problems it solves.
 
 2. [🗂 Stakeholder & Audience Categorization](#-stakeholder--audience-categorization)
 
@@ -43,40 +43,38 @@ Think of CTI-KG as a **virtual cybersecurity analyst** with a memory, reasoning 
 
 9. [📊 Data Pipeline](#-data-pipeline): Details of data ingestion, normalization, enrichment, and storage for structured and unstructured sources.
 
-10. [📚 Knowledge Graph Schema](#-knowledge-graph-schema): Explanation of the entities, relationships, and ontologies used in the CTI knowledge graph.
+10. [🤖 NLP Chatbot](#-nlp-chatbot): Description of the natural language interface for analysts to query the CTI-KG and receive contextual responses.
 
-11. [🤖 NLP Chatbot](#-nlp-chatbot): Description of the natural language interface for analysts to query the CTI-KG and receive contextual responses.
+11. [📈 Visualization & Dashboards](#-visualization--dashboards): Details of interactive dashboards, graphs, and attack path visualizations for analysts and executives.
 
-12. [📈 Visualization & Dashboards](#-visualization--dashboards): Details of interactive dashboards, graphs, and attack path visualizations for analysts and executives.
+12. [🔌 API Endpoints](#-api-endpoints): List and description of available REST/GraphQL endpoints to access the KG, alerts, and dashboards programmatically.
 
-13. [🔌 API Endpoints](#-api-endpoints): List and description of available REST/GraphQL endpoints to access the KG, alerts, and dashboards programmatically.
+13. [🔗 Integrations](#-integrations): Information on connecting with SIEMs, SOARs, TIPs, and third-party threat intelligence feeds.
 
-14. [🔗 Integrations](#-integrations): Information on connecting with SIEMs, SOARs, TIPs, and third-party threat intelligence feeds.
+14. [💡 Usage Examples](#-usage-examples): Sample queries, scripts, and workflows to demonstrate practical applications of CTI-KG.
 
-15. [💡 Usage Examples](#-usage-examples): Sample queries, scripts, and workflows to demonstrate practical applications of CTI-KG.
+15. [📊 Monitoring, Feedback & Logging](#-monitoring-feedback--logging): How the system tracks pipeline performance, captures analyst feedback, and maintains audit logs.
 
-16. [📊 Monitoring, Feedback & Logging](#-monitoring-feedback--logging): How the system tracks pipeline performance, captures analyst feedback, and maintains audit logs.
+16. [🔒 Security & Compliance](#-security--compliance): Guidelines for safe data handling, access control, and adherence to GDPR, CCPA, ISO27001, and other standards.
 
-17. [🔒 Security & Compliance](#-security--compliance): Guidelines for safe data handling, access control, and adherence to GDPR, CCPA, ISO27001, and other standards.
+17. [🤝 Contributing](#-contributing): Instructions for external developers to contribute, report issues, or suggest improvements.
 
-18. [🤝 Contributing](#-contributing): Instructions for external developers to contribute, report issues, or suggest improvements.
+18. [📜 License](#-license): Legal terms under which the project is released and used.
 
-19. [📜 License](#-license): Legal terms under which the project is released and used.
+19. [🎉 Acknowledgments](#-acknowledgments): Credits to individuals, organizations, and open-source projects that contributed.
 
-20. [🎉 Acknowledgments](#-acknowledgments): Credits to individuals, organizations, and open-source projects that contributed.
-
-21. [📚 References / Resources](#-references--resources): List of documents, standards, libraries, and external links used throughout the project.
+20. [📚 References / Resources](#-references--resources): List of documents, standards, libraries, and external links used throughout the project.
 
 
 ## 🚀 Project Overview
 
-The **Cyber Threat Intelligence Knowledge Graph (CTI-KG)** is designed to consolidate, analyze, and operationalize threat intelligence into a **centralized, graph-based platform**.  
+The **Malwatch** is designed to consolidate, analyze, and operationalize threat intelligence into a **centralized platform**.  
 
 ### Motivation
 Organizations face **overwhelming volumes of threat data** from structured sources (CVEs, ATT&CK, CAPEC, vulnerability scans) and unstructured sources (blogs, APT notes, leak sites). Security teams often struggle to correlate data, prioritize risks, and proactively mitigate attacks. CTI-KG addresses these challenges with **AI-enhanced intelligence and automation**, enabling faster, context-aware decisions.
 
 ### High-Level Goals
-1. Integrate **structured and unstructured threat intelligence** into a unified knowledge graph.  
+1. Integrate **structured and unstructured threat intelligence** into a unified database.  
 2. Enable **context-aware risk scoring** and prioritization of vulnerabilities.  
 3. Apply **AI-driven analytics** for anomaly detection, predictive scoring, and attack simulations.  
 4. Provide **automation & orchestration** with SOAR-ready playbooks and alerting.  
@@ -87,7 +85,7 @@ Organizations face **overwhelming volumes of threat data** from structured sourc
 
 ## 🗂 Stakeholder & Audience Categorization
 
-This table clarifies the distinctions between different groups interacting with CTI-KG, their roles, and the rationale for separating them.  
+This table clarifies the distinctions between different groups interacting with Malwatch, their roles, and the rationale for separating them.  
 
 | Category                                 | Description                                                                     | Examples                                                                                       | Why Distinguish?                                                                                                                      |
 | ---------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -204,29 +202,7 @@ This table clarifies the distinctions between different groups interacting with 
 </details>
 
 <details>
-<summary>3. Knowledge Graph Construction</summary>
-
-- **Entities:**
-  - Vulnerabilities (CVEs)
-  - Threat Actors & Groups
-  - TTPs (ATT&CK techniques)
-  - Campaigns
-  - Exploits & PoCs
-  - Assets (endpoints, cloud workloads, SaaS apps)
-  - Security controls (WAF, EDR, MFA)
-- **Relationships:**
-  - “Exploits” → Vulnerability
-  - “Targets” → Asset
-  - “Uses” → TTPs
-  - “Part of” → Campaign
-- Ontology & schema management
-- Graph database support (Neo4j or alternatives)
-- Real-time update propagation across nodes and edges
-
-</details>
-
-<details>
-<summary>4. AI & Analytics Features</summary>
+<summary>3. AI & Analytics Features</summary>
 
 - **Context-aware risk scoring:**
   - Multi-factor vulnerability scoring (CVSS, EPSS, KEV, asset criticality, exposure)
@@ -252,7 +228,7 @@ This table clarifies the distinctions between different groups interacting with 
 </details>
 
 <details>
-<summary>5. Automation & Orchestration</summary>
+<summary>4. Automation & Orchestration</summary>
 
 - Remediation playbook generation (SOAR-ready)
 - Integration with ITSM/SIEM/SOAR platforms:
@@ -266,7 +242,7 @@ This table clarifies the distinctions between different groups interacting with 
 </details>
 
 <details>
-<summary>6. Visualization & Dashboards</summary>
+<summary>5. Visualization & Dashboards</summary>
 
 - Interactive dashboards for:
   - Asset risk posture
@@ -274,7 +250,6 @@ This table clarifies the distinctions between different groups interacting with 
   - Attack path simulations
   - Anomaly alerts
   - Campaign & TTP correlations
-- Graph visualizations for Knowledge Graph traversal
 - Trend analysis & KPI monitoring
 - Drill-down reporting for analysts and executives
 - Customizable dashboards per role (SOC analyst, CISO, IT manager)
@@ -282,7 +257,7 @@ This table clarifies the distinctions between different groups interacting with 
 </details>
 
 <details>
-<summary>7. Collaboration & Threat Sharing</summary>
+<summary>6. Collaboration & Threat Sharing</summary>
 
 - STIX/TAXII export/import
 - Integration with TIPs & community sharing platforms
@@ -293,7 +268,7 @@ This table clarifies the distinctions between different groups interacting with 
 </details>
 
 <details>
-<summary>8. Security & Compliance</summary>
+<summary>7. Security & Compliance</summary>
 
 - Role-Based Access Control (RBAC)
 - Audit logging for all actions
@@ -304,7 +279,7 @@ This table clarifies the distinctions between different groups interacting with 
 </details>
 
 <details>
-<summary>9. Monitoring & Observability</summary>
+<summary>8. Monitoring & Observability</summary>
 
 - **Metrics collection:**
   - % critical vulns covered by playbooks
@@ -318,9 +293,9 @@ This table clarifies the distinctions between different groups interacting with 
 </details>
 
 <details>
-<summary>10. Developer & Extensibility Features</summary>
+<summary>9. Developer & Extensibility Features</summary>
 
-- REST & GraphQL API endpoints for:
+- REST API endpoints for:
   - Querying vulnerabilities, assets, TTPs, campaigns
   - Retrieving risk scores, simulations, and alerts
 - Plugin or microservice-based architecture
@@ -346,10 +321,10 @@ How to configure API keys, credentials, pipeline parameters, environment variabl
 
 
 
-## 🧠 CTI-KG Pipeline Phases
+## 🧠 Malwatch Pipeline Phases
 : Full Inputs & Outputs & The Inbetweens (INPUTS AND OUTPUTS OF EACH PHASE NEEDS TO BE REVISED REALLY HARD)
 
-The following sections detail each phase of the **CTI-KG Pipeline**, including **inputs, internal processing, outputs**, and how they **connect to other phases**. This aligns directly with the agenda outlined in the Table of Contents.
+The following sections detail each phase of the **Malwatch Pipeline**, including **inputs, internal processing, outputs**, and how they **connect to other phases**. This aligns directly with the agenda outlined in the Table of Contents.
 
 
 
@@ -552,138 +527,7 @@ Build a repeatable, resilient, and observable collection system that continuousl
 </details>
 
 
-
-<details> 
-  <summary>✅ Phase 3: Knowledge Graph Construction</summary> 
-
-### 🔁 Inputs:
-- **Normalized & Enriched Feeds (Phase 2 outputs):**  
-  - CVEs (with CVSS/EPSS/KEV, CPE, CWE mappings).  
-  - IOCs (IPs/domains/hashes with enrichment context).  
-  - Exploits & PoCs (ExploitDB, GitHub).  
-  - ATT&CK & CAPEC techniques.  
-  - Asset inventories & vulnerability scan mappings.  
-
-- **Ontology Schema:**  
-  - STIX 2.1 objects (Vulnerability, Indicator, Malware, Tool, Attack-Pattern).  
-  - MITRE ATT&CK ontology (Tactics → Techniques → Sub-techniques).  
-  - Custom CTI-KG schema extensions (e.g., Asset, DetectionRule, Exposure).  
-
-- **Previous KG Snapshot (incremental updates):**  
-  - Stored graph DB (Neo4j, JanusGraph, AWS Neptune, or GraphDB RDF).  
-  - Used to compute deltas (new vs modified nodes/edges).  
-
----
-
-### ⚙️ Inside (Graph Building & Intelligence Fusion):
-
-1. **Graph Data Model Definition:**  
-   - Define KG node types: `{CVE, CWE, CAPEC, ATT&CK Technique, IOC, Exploit, Malware, Tool, Asset, Rule}`.  
-   - Define relationship edges:  
-     - (CVE) → (CWE) `[has_weakness]`  
-     - (CVE) → (CPE) `[affects_product]`  
-     - (CVE) → (Exploit) `[exploited_by]`  
-     - (Exploit) → (ATT&CK Technique) `[demonstrates]`  
-     - (IOC) → (Malware) `[associated_with]`  
-     - (IOC) → (Campaign) `[observed_in]`  
-     - (CVE) → (Asset) `[present_on]`  
-     - (Sigma/YARA Rule) → (ATT&CK Technique) `[detects]`  
-   - Store schema definition in `/infra/kg_schema/`.  
-
-2. **Transformation → Graph Nodes & Edges:**  
-   - Convert normalized JSON/Parquet (from Silver layer) → graph triples (RDF/Turtle or Cypher inserts).  
-   - Example: `CVE-2021-44228 (Log4Shell)` → Node(CVE) linked to Node(ATT&CK T1190).  
-   - Auto-generate edges for CVE ↔ CPE ↔ Asset joins.  
-
-3. **Rule-Based Linking (Deterministic):**  
-   - Knowledge rules engine (Drools/Prolog/Graph rules):  
-     - If CVE mentions “remote code execution” + “Apache Log4j” → link to ATT&CK T1190 (Exploit Public-Facing Application).  
-     - If IOC resolves to same ASN as known C2 infra → group under same Campaign node.  
-
-4. **ML/GNN Enrichment (Predictive Links):**  
-   - Use Graph Neural Networks (GNNs) / Graph Embeddings (TransE, Node2Vec, GraphSAGE):  
-     - Predict missing CVE–ATT&CK links.  
-     - Suggest IOC–Malware associations.  
-     - Infer asset exposure patterns (e.g., critical asset clusters).  
-   - Store predictions with confidence scores.  
-
-5. **Consistency & Validation:**  
-   - Schema constraints: no orphan CVEs without CPEs, ATT&CK techniques must link to tactics.  
-   - Ontology checks: CVE → CWE → CAPEC must follow hierarchy.  
-   - Automated graph validation pipeline (Neo4j constraints or SHACL validation if RDF).  
-
-6. **Human-in-the-Loop Active Learning:**  
-   - Low-confidence links (e.g., GNN predicted 40% confidence) → flagged to analyst queue.  
-   - Analysts approve/reject → feedback stored → model retrains incrementally.  
-   - Analyst decisions stored in `/feedback/phase3/`.  
-
-7. **Incremental Updates (Delta Loads):**  
-   - Compare new batch vs previous KG snapshot.  
-   - Apply only deltas (insert new CVEs, update CVSS scores, delete deprecated edges).  
-   - Maintain temporal KG (time-stamped graph snapshots for historical analysis).  
-
----
-
-### 🏗️ Storage & Infra Blueprint:
-- **Graph DB:**  
-  - Neo4j (property graph, Cypher queries).  
-  - OR RDF store (GraphDB, Blazegraph, Neptune) for SPARQL queries.  
-
-- **Indexing Layer:**  
-  - Graph embeddings stored in vector DB (Weaviate, Pinecone, Milvus) for similarity search.  
-
-- **Delta Storage:**  
-  - `/data/kg/snapshots/` → full monthly dumps.  
-  - `/data/kg/deltas/` → incremental updates.  
-
-- **Schema Management:**  
-  - Version-controlled ontology in Git (`/infra/kg_schema/vX.Y/`).  
-
----
-
-### 🔄 Pipeline Orchestration:
-- **Airflow DAGs:** trigger KG build after Phase 2 normalization completes.  
-- **Kafka topics:**  
-  - `phase2.enriched` → `phase3.kg_build`  
-  - `phase3.kg_updates` → consumed by downstream analytics  
-- **Microservices:**  
-  - `kg_transformer` → raw → triples  
-  - `kg_validator` → check schema/ontology  
-  - `kg_linker` → GNN + rule-based engine  
-- **CI/CD for KG schema:** automated schema diff + migration.  
-
----
-
-### 📊 Monitoring & Observability:
-- **Grafana dashboards:** node/edge growth rate, GNN confidence distribution, validation errors.  
-- **Prometheus metrics:** KG update latency, failed edge insertions, % auto vs analyst-approved links.  
-- **Alerts:** sudden surges in IOC link density (possible attack campaign).  
-
----
-
-### 🎯 Purpose:
-- Create a living, unified Threat Intelligence Knowledge Graph (CTI-KG).  
-- Enable advanced correlation: CVE ↔ Exploit ↔ ATT&CK ↔ IOC ↔ Asset.  
-- Power reasoning, search, and ML for threat detection and prioritization.  
-
----
-
-### 📤 Outputs:
-- `/data/kg/snapshots/kg_full.graphdb` → Full KG snapshot.  
-- `/data/kg/deltas/*.json` → Incremental updates.  
-- `/data/kg/latest_schema_version.txt` → Active KG schema version.  
-- **GraphDB/Neo4j API endpoint** → for queries & analytics.  
-- **Vector DB (Weaviate/Pinecone) embeddings** for semantic similarity search.  
-
-🔁 **Used again in:** Phases 4–12 (Detection, Correlation, Analytics, Reporting, Simulation, Automation).  
-
-</details>
-
-
-
-
-
-<details> <summary>✅ Phase 4: Unstructured Data Processing</summary> 
+<details> <summary>✅ Phase 3: Unstructured Data Processing</summary> 
 
 🔁 **Inputs:**  
 - Threat Reports: Vendor advisories (PDF/HTML), CERT/CSIRT reports, industry whitepapers.  
@@ -791,7 +635,7 @@ Build a repeatable, resilient, and observable collection system that continuousl
 
 
 
-<details> <summary>✅ Phase 5: Threat Attribution & Campaign Correlation</summary> 
+<details> <summary>✅ Phase 4: Threat Attribution & Campaign Correlation</summary> 
 
 🔁 **Inputs:**
 - KG entities (from Phase 3 & 4): CVEs, ATT&CK TTPs, IOCs, Malware, Infrastructure nodes.  
@@ -888,7 +732,7 @@ Build a repeatable, resilient, and observable collection system that continuousl
 
 
 <details> 
-  <summary>✅ Phase 6: Context-Aware Analysis & Anomaly Detection</summary> 
+  <summary>✅ Phase 5: Context-Aware Analysis & Anomaly Detection</summary> 
 
 🔁 **Inputs:**
 - Knowledge Graph state (Phase 3–5): vulnerabilities, TTPs, IOCs, campaign links.  
@@ -1004,7 +848,7 @@ Build a repeatable, resilient, and observable collection system that continuousl
 
 
 
-<details> <summary>✅ Phase 7: Adversary Simulation & Hunting Prep</summary> 
+<details> <summary>✅ Phase 6: Adversary Simulation & Hunting Prep</summary> 
 
 🔁 **Inputs:**
 - Knowledge Graph with attack paths (Phase 6): simulated exploitation chains, vulnerable assets, lateral movement routes.  
@@ -1104,7 +948,7 @@ Build a repeatable, resilient, and observable collection system that continuousl
 
 
 
-<details> <summary>✅ Phase 8: Automation & Integration</summary> 
+<details> <summary>✅ Phase 7: Automation & Integration</summary> 
 
 🔁 **Inputs:**
 - Analysis results (Phase 6): prioritized alerts, attack paths, remediation recommendations.  
@@ -1205,7 +1049,7 @@ Build a repeatable, resilient, and observable collection system that continuousl
 
 
 
-<details> <summary>✅ Phase 9: Visualization & Analyst Workbench</summary> 
+<details> <summary>✅ Phase 8: Visualization & Analyst Workbench</summary> 
 
 🔁 **Inputs:**
 - KG snapshot: current graph of entities (CVEs, IOCs, campaigns, adversaries, assets).  
@@ -1291,7 +1135,7 @@ Build a repeatable, resilient, and observable collection system that continuousl
 
 
 
-<details> <summary>✅ Phase 10: NLP Chatbot Interface</summary> 
+<details> <summary>✅ Phase 9: NLP Chatbot Interface</summary> 
 
 🔁 **Inputs:**
 - User Queries: free-text analyst/SOC operator inputs (Slack, Teams, Web UI, CLI).  
@@ -1371,7 +1215,7 @@ Build a repeatable, resilient, and observable collection system that continuousl
 </details>
 
 
-<details> <summary>✅ Phase 11: Collaboration & Sharing</summary> 
+<details> <summary>✅ Phase 10: Collaboration & Sharing</summary> 
 
 🔁 **Inputs:**
 - KG Outputs: correlated entities (CVEs, IOCs, TTPs, actor campaigns, asset mappings).  
@@ -1447,7 +1291,7 @@ Build a repeatable, resilient, and observable collection system that continuousl
 
 
 
-<details> <summary>✅ Phase 12: Monitoring, Evaluation & Maintenance</summary> 
+<details> <summary>✅ Phase 11: Monitoring, Evaluation & Maintenance</summary> 
 
 🔁 **Inputs:**
 - System Logs: ingestion pipeline logs, SOAR/SIEM integrations, chatbot interaction history.  
@@ -1538,9 +1382,6 @@ Build a repeatable, resilient, and observable collection system that continuousl
 
 ## 📊 Data Pipeline
 Details of data ingestion, normalization, enrichment, transformation, storage, and indexing for structured and unstructured threat intelligence sources.
-
-## 📚 Knowledge Graph Schema
-Explanation of the entities, relationships, ontologies, and naming conventions used in the CTI knowledge graph. Include example graphs and diagrams.
 
 ## 🤖 NLP Chatbot
 Description of the natural language interface for analysts to query CTI-KG, with examples of questions, intents, responses, and RAG-based enrichment.
