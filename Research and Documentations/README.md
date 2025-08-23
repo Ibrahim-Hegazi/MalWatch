@@ -39,7 +39,7 @@ Think of Malwatch as a **virtual cybersecurity analyst** with a memory, reasonin
 
 7. [🔧 Configuration](#-configuration): How to configure API keys, credentials, pipeline settings, and environment variables.
 
-8. [🧠 Malwatch Pipeline Phases](#-cti-kg-pipeline-phases): Overview of all phases from threat data acquisition to monitoring, including inputs, processing steps, and outputs.
+8. [🧠 Malwatch Pipeline Phases](#-malwatch-pipeline-phases): Overview of all phases from threat data acquisition to monitoring, including inputs, processing steps, and outputs.
 
 9. [📊 Data Pipeline](#-data-pipeline): Details of data ingestion, normalization, enrichment, and storage for structured and unstructured sources.
 
