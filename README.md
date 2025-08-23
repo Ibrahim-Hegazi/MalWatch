@@ -39,31 +39,33 @@ Think of Malwatch as a **virtual cybersecurity analyst** with a memory, reasonin
 
 7. [🔧 Configuration](#-configuration): How to configure API keys, credentials, pipeline settings, and environment variables.
 
-8. [🧠 Malwatch Pipeline Phases](#-malwatch-pipeline-phases): Overview of all phases from threat data acquisition to monitoring, including inputs, processing steps, and outputs.
+8. [🗂 Directory Structure](#-directory-structure)
 
-9. [📊 Data Pipeline](#-data-pipeline): Details of data ingestion, normalization, enrichment, and storage for structured and unstructured sources.
+9. [🧠 Malwatch Pipeline Phases](#-malwatch-pipeline-phases): Overview of all phases from threat data acquisition to monitoring, including inputs, processing steps, and outputs.
 
-10. [🤖 NLP Chatbot](#-nlp-chatbot): Description of the natural language interface for analysts to query the CTI-KG and receive contextual responses.
+10. [📊 Data Pipeline](#-data-pipeline): Details of data ingestion, normalization, enrichment, and storage for structured and unstructured sources.
 
-11. [📈 Visualization & Dashboards](#-visualization--dashboards): Details of interactive dashboards, graphs, and attack path visualizations for analysts and executives.
+11. [🤖 NLP Chatbot](#-nlp-chatbot): Description of the natural language interface for analysts to query the CTI-KG and receive contextual responses.
 
-12. [🔌 API Endpoints](#-api-endpoints): List and description of available REST/GraphQL endpoints to access the KG, alerts, and dashboards programmatically.
+12. [📈 Visualization & Dashboards](#-visualization--dashboards): Details of interactive dashboards, graphs, and attack path visualizations for analysts and executives.
 
-13. [🔗 Integrations](#-integrations): Information on connecting with SIEMs, SOARs, TIPs, and third-party threat intelligence feeds.
+13. [🔌 API Endpoints](#-api-endpoints): List and description of available REST/GraphQL endpoints to access the KG, alerts, and dashboards programmatically.
 
-14. [💡 Usage Examples](#-usage-examples): Sample queries, scripts, and workflows to demonstrate practical applications of CTI-KG.
+14. [🔗 Integrations](#-integrations): Information on connecting with SIEMs, SOARs, TIPs, and third-party threat intelligence feeds.
 
-15. [📊 Monitoring, Feedback & Logging](#-monitoring-feedback--logging): How the system tracks pipeline performance, captures analyst feedback, and maintains audit logs.
+15. [💡 Usage Examples](#-usage-examples): Sample queries, scripts, and workflows to demonstrate practical applications of CTI-KG.
 
-16. [🔒 Security & Compliance](#-security--compliance): Guidelines for safe data handling, access control, and adherence to GDPR, CCPA, ISO27001, and other standards.
+16. [📊 Monitoring, Feedback & Logging](#-monitoring-feedback--logging): How the system tracks pipeline performance, captures analyst feedback, and maintains audit logs.
 
-17. [🤝 Contributing](#-contributing): Instructions for external developers to contribute, report issues, or suggest improvements.
+17. [🔒 Security & Compliance](#-security--compliance): Guidelines for safe data handling, access control, and adherence to GDPR, CCPA, ISO27001, and other standards.
 
-18. [📜 License](#-license): Legal terms under which the project is released and used.
+18. [🤝 Contributing](#-contributing): Instructions for external developers to contribute, report issues, or suggest improvements.
 
-19. [🎉 Acknowledgments](#-acknowledgments): Credits to individuals, organizations, and open-source projects that contributed.
+19. [📜 License](#-license): Legal terms under which the project is released and used.
 
-20. [📚 References / Resources](#-references--resources): List of documents, standards, libraries, and external links used throughout the project.
+20. [🎉 Acknowledgments](#-acknowledgments): Credits to individuals, organizations, and open-source projects that contributed.
+
+21. [📚 References / Resources](#-references--resources): List of documents, standards, libraries, and external links used throughout the project.
 
 
 ## 🚀 Project Overview
@@ -315,6 +317,83 @@ Step-by-step instructions to set up the environment, install dependencies, confi
 ## 🔧 Configuration
 How to configure API keys, credentials, pipeline parameters, environment variables, logging levels, and other operational settings.
 
+## 🗂 Directory Structure
+The following tree shows the overall structure of the MalWatch repository.
+It is designed to help developers, contributors, and reviewers quickly navigate the project, understand where different components live, and maintain a professional, scalable workflow.
+
+## 🗂 Directory Structure
+
+- MalWatch/
+  - README.md  # Project overview & onboarding docs
+  - docker-compose.yml  # Docker services (Postgres, Mongo, pgAdmin, etc.)
+  - .env.example  # Template for environment variables
+  - .gitignore  # Ignore venvs, pycache, creds, etc.
+  - requirements.txt  # Python dependencies
+  - setup.py  # Optional: package installer (if you publish libs)
+
+  - docs/  # Documentation for teammates & recruiters
+    - architecture.md  # High-level system design
+    - erd_postgres.png  # ERD for CVE + CWE schema
+    - mongo_schema.png  # Schema diagram for ExploitDB
+    - pipeline_flow.png  # Prefect DAG / ETL pipeline diagram
+
+  - research/  # Your research notes & references
+    - (existing files from "Research and Documentations")
+
+  - src/  # Main source code
+    - __init__.py
+
+    - config/  # Configuration & constants
+      - __init__.py
+      - settings.py  # Reads .env and centralizes configs
+
+    - extract/  # Data extraction scripts
+      - __init__.py
+      - cve_extractor.py
+      - cwe_extractor.py
+      - exploitdb_extractor.py
+
+    - transform/  # Cleaning & transformation logic
+      - __init__.py
+      - normalize_cve.py
+      - normalize_cwe.py
+      - normalize_exploitdb.py
+
+    - load/  # Loading into databases
+      - __init__.py
+      - load_cve_postgres.py  # With SCD2 diff logic
+      - load_cwe_postgres.py
+      - load_exploitdb_mongo.py
+
+    - orchestration/  # Prefect flows / DAGs
+      - __init__.py
+      - pipeline_flow.py
+
+    - db/  # Database setup & migrations
+      - __init__.py
+      - postgres_init.sql  # Tables + SCD2 schema
+      - mongo_init.js  # Collections + indexes
+
+    - utils/  # Shared helpers
+      - __init__.py
+      - logger.py  # Centralized logging
+      - diff_checker.py  # Reusable SCD2 comparison logic
+
+  - tests/  # Unit & integration tests
+    - __init__.py
+    - test_extractors.py
+    - test_transformers.py
+    - test_loaders.py
+    - test_pipeline.py
+
+  - ci-cd/  # GitHub Actions workflows
+    - lint.yml  # Run linting/black/flake8
+    - tests.yml  # Run unit tests on push/PR
+    - deploy.yml  # Optional future: auto-deploy pipeline
+
+  - backups/  # Local DB backups before GitHub push
+    - postgres/
+    - mongo/
 
 
 ## 🧠 Malwatch Pipeline Phases
