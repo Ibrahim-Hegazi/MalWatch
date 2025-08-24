@@ -324,76 +324,113 @@ It is designed to help developers, contributors, and reviewers quickly navigate 
 ## 🗂 Directory Structure
 
 - MalWatch/
-  - README.md  # Project overview & onboarding docs
-  - docker-compose.yml  # Docker services (Postgres, Mongo, pgAdmin, etc.)
-  - .env.example  # Template for environment variables
-  - .gitignore  # Ignore venvs, pycache, creds, etc.
-  - requirements.txt  # Python dependencies
-  - setup.py  # Optional: package installer (if you publish libs)
+  - README.md                   # Project overview, setup & onboarding
+  - CONTRIBUTING.md             # Guidelines for external/internal contributors
+  - LICENSE                     # Project license (MIT/Apache/etc.)
+  - CHANGELOG.md                # Versioned changelog for releases
+  - docker-compose.yml          # Multi-service environment setup
+  - Dockerfile                  # Main Docker image for src
+  - .env.example                # Template for environment variables
+  - .gitignore                  # Ignore venvs, pycache, creds, logs, etc.
+  - requirements.txt            # Python dependencies
+  - setup.py                    # Package installer (if publishing libs)
+  - pyproject.toml              # Modern build system config (optional)
+  - Makefile                    # Common dev commands (make test, make lint, etc.)
 
-  - docs/  # Documentation for teammates & recruiters
-    - architecture.md  # High-level system design
-    - erd_postgres.png  # ERD for CVE + CWE schema
-    - mongo_schema.png  # Schema diagram for ExploitDB
-    - pipeline_flow.png  # Prefect DAG / ETL pipeline diagram
+  - docs/                       # Documentation for devs, analysts, recruiters
+    - architecture.md         # High-level system architecture
+    - erd_postgres.png        # ERD for CVE + CWE schema
+    - mongo_schema.png        # Schema diagram for ExploitDB
+    - pipeline_flow.png       # Prefect DAG / ETL pipeline diagram
+    - execution_flow.md       # Step-by-step execution flow
+    - api_docs.md             # Auto-generated FastAPI/GraphQL docs
+    - research/               # Whitepapers, references, datasets
 
-  - research/  # Your research notes & references
-    - (existing files from "Research and Documentations")
+  - scripts/                    # Utility + operational scripts
+    - init_postgres.sql       # Init Postgres tables (CVE, CWE, joins)
+    - init_mongo.js           # Init Mongo collections + indexes
+    - seed_sample_data.py     # Seeds test data for dev/demo
+    - backup_postgres.sh      # Backup Postgres DB
+    - backup_mongo.sh         # Backup Mongo DB
 
-  - src/  # Main source code
+  - src/                        # Main source code
     - __init__.py
-
-    - config/  # Configuration & constants
+    - config/                 # Centralized configuration
       - __init__.py
-      - settings.py  # Reads .env and centralizes configs
-
-    - extract/  # Data extraction scripts
+      - settings.py         # Reads .env, centralizes configs
+    - ingestion/              # Extract raw data from sources
       - __init__.py
-      - cve_extractor.py
-      - cwe_extractor.py
-      - exploitdb_extractor.py
-
-    - transform/  # Cleaning & transformation logic
+      - cve_ingest.py
+      - cwe_ingest.py
+      - exploitdb_ingest.py
+    - transform/              # Clean, normalize, enrich data
       - __init__.py
       - normalize_cve.py
       - normalize_cwe.py
       - normalize_exploitdb.py
-
-    - load/  # Loading into databases
+    - load/                   # Load into target DBs
       - __init__.py
-      - load_cve_postgres.py  # With SCD2 diff logic
+      - load_cve_postgres.py
       - load_cwe_postgres.py
       - load_exploitdb_mongo.py
-
-    - orchestration/  # Prefect flows / DAGs
+    - orchestration/          # Prefect flows / DAGs
       - __init__.py
       - pipeline_flow.py
-
-    - db/  # Database setup & migrations
+    - api/                    # API layer (REST/GraphQL)
       - __init__.py
-      - postgres_init.sql  # Tables + SCD2 schema
-      - mongo_init.js  # Collections + indexes
-
-    - utils/  # Shared helpers
+      - main.py             # FastAPI entrypoint
+      - routers/            # Modular API endpoints
+        - __init__.py
+        - cve.py
+        - cwe.py
+        - exploitdb.py
+      - schemas/            # Pydantic models for validation
+        - __init__.py
+        - cve_schema.py
+        - cwe_schema.py
+        - exploitdb_schema.py
+    - nlp/                    # Chatbot + natural language queries
       - __init__.py
-      - logger.py  # Centralized logging
-      - diff_checker.py  # Reusable SCD2 comparison logic
+      - chatbot.py          # Analyst interface
+      - query_parser.py     # Maps NL queries → SQL/Graph queries
+    - viz/                    # Visualization layer
+      - __init__.py
+      - graph_viz.py        # Attack graph visualizations
+      - dashboard.py        # Dash/Streamlit dashboards
+    - monitoring/             # Logs, metrics, observability
+      - __init__.py
+      - metrics.py          # Prometheus/Grafana metrics
+      - audit_logs.py       # Analyst feedback + audit trails
+    - utils/                  # Shared helper functions
+      - __init__.py
+      - logger.py
+      - db_utils.py
+      - diff_checker.py
+    - cli/                    # Command-line interface for devs/analysts
+      - __init__.py
+      - malwatch_cli.py     # `python -m src.cli.malwatch_cli`
 
-  - tests/  # Unit & integration tests
+  - tests/                      # Unit & integration tests
     - __init__.py
-    - test_extractors.py
-    - test_transformers.py
-    - test_loaders.py
+    - test_ingestion.py
+    - test_transform.py
+    - test_load.py
     - test_pipeline.py
+    - test_api.py
+    - test_chatbot.py
 
-  - ci-cd/  # GitHub Actions workflows
-    - lint.yml  # Run linting/black/flake8
-    - tests.yml  # Run unit tests on push/PR
-    - deploy.yml  # Optional future: auto-deploy pipeline
+  - ci-cd/                      # GitHub Actions workflows
+    - lint.yml                # Run lint/black/flake8
+    - tests.yml               # Run pytest
+    - deploy.yml              # Optional: CD to cloud
 
-  - backups/  # Local DB backups before GitHub push
+  - backups/                    # Local DB backups before GitHub push
     - postgres/
     - mongo/
+
+  - .github/                    # GitHub metadata
+    - ISSUE_TEMPLATE.md
+    - PULL_REQUEST_TEMPLATE.md
 
 
 ## 🧠 Malwatch Pipeline Phases
